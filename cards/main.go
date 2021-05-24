@@ -4,7 +4,7 @@ var card string = "Ace of Spaces"
 
 func main() {
 
-	cards := newDeck()
+	cards := newDeckFromFile("deckFile.txt")
 
 	cards.print()
 }

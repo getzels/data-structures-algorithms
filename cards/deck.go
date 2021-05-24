@@ -4,7 +4,10 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"math/rand"
+	"os"
 	"strings"
+	"time"
 )
 
 //Create a deck type as a slice of string
@@ -51,10 +54,27 @@ func (d deck) deckToFile(filename string) int {
 	return 0
 }
 
-func newDeckFromFile(filename string) {
+func newDeckFromFile(filename string) deck {
 	file, err := ioutil.ReadFile(filename)
 
 	if err != nil {
+		log.Fatal("Error trying to read the file.", err)
+		os.Exit(1)
+	}
 
+	deckstring := strings.Split(string(file), ",")
+
+	return deck(deckstring)
+}
+
+func (d deck) shuffle() {
+
+	source := rand.NewSource(time.Now().UnixNano())
+	r := rand.New(source)
+
+	for i := range d {
+		newPosition := r.Intn(len(d) - 1)
+
+		d[i], d[newPosition] = d[newPosition], d[i]
 	}
 }
