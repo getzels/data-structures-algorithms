@@ -11,12 +11,10 @@ func main() {
 		},
 	}
 
-	fmt.Println(alex)
-
+	alex.updateName("Xavier")
 	alex.lastName = "Cabrera"
-	alex.firstName = "Xavier"
 
-	fmt.Println(alex)
+	fmt.Printf("%+v", alex)
 }
 
 type person struct {
@@ -28,4 +26,8 @@ type person struct {
 type contactInfo struct {
 	email   string
 	zipCode int
+}
+
+func (p *person) updateName(name string) {
+	(*p).firstName = name
 }
